@@ -2,7 +2,7 @@
 
 (in-package #:dev.shft.aoc-2024)
 
-(defclass day1 (day) ())
+(defday 1)
 
 (defmethod run ((day day1))
   (multiple-value-bind (left right) (get-input day)
@@ -11,15 +11,15 @@
     (apply #'+ (mapcar (lambda (x y) (abs (- x y))) left right))))
 
 (defmethod get-input ((day day1))
-  (let* ((path (merge-pathnames "1/input" +input-path+))
-         (file (uiop:read-file-lines path))
-         (left '())
-         (right '()))
-    (dolist (str file)
-      (when (and (stringp str) (> (length str) 0)) ; Validate line
-        (let ((split (split-sequence:split-sequence #\Space str)))
-          (when (>= (length split) 4) ; Ensure at least 4 elements
-            (push (parse-integer (first split) :junk-allowed t) left)
-            (push (parse-integer (fourth split) :junk-allowed t) right)))))
-    (values (sort left #'<) (sort right #'<))))
+  (let ((file (split-sequence:split-sequence #\Newline (call-next-method)))) ; Calls the generic method
+    (let ((left '())
+          (right '()))
+      (dolist (str file)
+        (when (and (stringp str) (> (length str) 0))
+          (let ((split (split-sequence:split-sequence #\Space str)))
+            (when (>= (length split) 4)
+              (push (parse-integer (first split) :junk-allowed t) left)
+              (push (parse-integer (fourth split) :junk-allowed t) right)))))
+      (values (sort left #'<) (sort right #'<)))))
+
 
