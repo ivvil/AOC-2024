@@ -10,6 +10,10 @@
 
 (defvar *input* ())
 
+(defgeneric run (day))
+
+(defgeneric run-second (day))
+
 (defgeneric get-input (day))
 
 (defmethod get-input ((day day))
