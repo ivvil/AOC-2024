@@ -6,6 +6,7 @@
   :license  "Specify license here"
   :version "0.0.1"
   :serial t
-  :depends-on (:split-sequence)
+  :depends-on (:split-sequence
+			   :cl-ppcre)
   :components ((:file "package")
                (:file "aoc")))
